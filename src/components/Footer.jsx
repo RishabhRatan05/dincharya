@@ -4,12 +4,11 @@ const Footer = () => {
   const [quote,setQuote] = useState("")
   const url = 'https://type.fit/api/quotes'
   const url2 = 'https://static.animesuge.to/i/1/11/f8afece6eff312ce165e22779b894708.jpg'
-  
 
-  useEffect(()=>async()=>{
+  const getquote =async()=>{
     try {
         const gotquote = await (await fetch(url)).json()
-        console.log('gotquote',gotquote)
+        console.log('got Quote',gotquote)
         const random= Math.ceil(Math.random()*10)
 
         setQuote((gotquote[random].text))
@@ -17,6 +16,11 @@ const Footer = () => {
     } catch (error) {
       console.error(error)
     }
+  }
+  
+
+  useEffect(()=>{
+    getquote()
   },[])
   return (
     <div className='p-2 flex items-center justify-between bg-primary '>
@@ -29,5 +33,6 @@ const Footer = () => {
     </div>
   )
 }
+
 
 export default Footer
