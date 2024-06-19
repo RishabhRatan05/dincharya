@@ -30,6 +30,7 @@ const Home = () => {
       <h1 className='text-6xl md:text-8xl flex justify-center items-center   animate text-kalar-400'>WorkOut</h1>
       <div className='mt-4 flex justify-between '>
       <Carousel
+        showThumbs={false} 
         infiniteLoop ={true}
         autoPlay ={true}
         interval={5000}
@@ -147,6 +148,7 @@ const Home = () => {
       <h1 className='text-6xl md:text-8xl flex justify-center items-center   animate text-kalar-400'>Goals</h1>
       <div className='mt-4 flex justify-between '>
       <Carousel
+        showThumbs={false} 
         infiniteLoop ={true}
         autoPlay ={true}
         interval={5000}
