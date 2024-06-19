@@ -4,7 +4,7 @@ import TaskCard from '../components/TaskCard'
 import Footer from '../components/Footer'
 
 const Progress = () => {
-  const url = 'http://localhost:8000/api/progress/'
+  const url = process.env.URL
   const id='666e9fc917dd12ca820c19ae'
   const url2= url+id
   const [created,setCreated] = useState(false)
