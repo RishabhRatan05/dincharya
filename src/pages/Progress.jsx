@@ -10,7 +10,9 @@ const Progress = () => {
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    dispatch(getAllTodos()) 
+    console.log('dispatch',dispatch)
+    const a=dispatch(getAllTodos()) 
+    console.log('after dispatch',a)
   },[])
 
 
