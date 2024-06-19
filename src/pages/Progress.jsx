@@ -7,7 +7,7 @@ const Progress = () => {
   const URL = 'https://dincharyaserver.vercel.app/'
   const url = process.env.URL
   const id='666e9fc917dd12ca820c19ae'
-  const url2= url+id
+  const url2= URL+id
   const [created,setCreated] = useState(false)
   const [title,setTitle] = useState('')
   const [description,setDescription] = useState('')
@@ -17,7 +17,7 @@ const Progress = () => {
     isCompleted:false,
   })
   
-  console.log(URL+id)
+  console.log('run',URL+id)
   const [todos,setTodos] = useState([])
 
 //get todos
