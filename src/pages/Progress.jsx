@@ -4,7 +4,7 @@ import TaskCard from '../components/TaskCard'
 import Footer from '../components/Footer'
 
 const Progress = () => {
-  const URL = 'https://dincharyaserver.vercel.app/'
+  const URL = 'https://dincharyaserver.onrender.com/'
   const url = process.env.URL
   const id='666e9fc917dd12ca820c19ae'
   const url2= URL+id
