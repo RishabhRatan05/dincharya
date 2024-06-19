@@ -10,9 +10,7 @@ const Progress = () => {
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    console.log('dispatch',dispatch)
-    const a=dispatch(getAllTodos()) 
-    console.log('after dispatch',a)
+      dispatch(getAllTodos()) 
   },[])
 
 
@@ -20,10 +18,9 @@ const Progress = () => {
 
   console.log('todos',error,isLoading,todos)
 
-  const [created,setCreated] = useState(false)
   const [title,setTitle] = useState('')
   const [description,setDescription] = useState('')
-  const [todo,setTodo] = useState({
+  const [todoo,setTodo] = useState({
     title:'',
     description:'',
     isCompleted:false,
@@ -50,7 +47,7 @@ const Progress = () => {
       e.preventDefault()
       if(title==='') alert('Title is required')
       else{
-          dispatch(createTodo())
+          dispatch(createTodo(todoo))
           console.log('deployed',todos)
       }
   }
@@ -80,15 +77,15 @@ const Progress = () => {
         {isLoading? <h1>loading ...</h1>
         :
         <div className=''>
-          {todos?.map((todo, index)=>(
-
+          {todos && todos?.map((todo, index)=>(
+            todo &&(
             <> 
-            {todo.isCompleted?
+            { todo?.isCompleted?
             <></>      
             :
            <TaskCard key={todo._id} id={todo._id} title={todo.title} description={todo.description} isCompleted={todo.isCompleted}/>
              }
-           </>
+           </>)
           ))
           }
         </div>
@@ -103,14 +100,15 @@ const Progress = () => {
         Completed
         </div>
         <div className=''>
-          {todos?.map((todo, index)=>(
-          <>
-            {todo.isCompleted?
+          {todos && todos?.map((todo, index)=>(
+            todo && 
+          (<>
+            {todo?.isCompleted?
            <TaskCard key={todo._id} id={todo._id} title={todo.title} description={todo.description} isCompleted={todo.isCompleted}/>
             :
             <></>
             }
-          </>
+          </>)
           ))
           }
         </div>

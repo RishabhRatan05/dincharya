@@ -27,17 +27,22 @@ export const getAllTodos = createAsyncThunk('getTodos', async()=>{
 
 
 export const createTodo = createAsyncThunk('createTodo', async (todo)=>{
+  console.log('ttooddoo',todo)
       try {
         const res = await fetch(url2, {
           method: "POST",
+          //new
+          // mode: 'no-cors',
           headers: {
+            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
           },
+          //new
+          // credentials:'same-origin',
           body: JSON.stringify(todo),
         })
-        const data = await res.json()
-        console.log('inside creteTodo data: ',data)
-        return data.todo
+        console.log('inside creteTodo data: ',todo)
+        return await res.json().todo
       } catch (error) {
         return error
       }
