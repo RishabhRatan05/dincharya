@@ -18,6 +18,7 @@ export const getAllTodos = createAsyncThunk('getTodos', async()=>{
 
           const res = await data.json()
           const par = await JSON.parse(res.daa)
+          console.log('inside getalltodo',par)
           return par
         } catch (error) {
           return error
