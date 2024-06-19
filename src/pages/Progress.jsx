@@ -16,6 +16,8 @@ const Progress = () => {
 
   const {error,isLoading,todos} = useSelector((state)=>state.progress)
 
+  console.log('todos',error,isLoading,todos)
+
   const [created,setCreated] = useState(false)
   const [title,setTitle] = useState('')
   const [description,setDescription] = useState('')
