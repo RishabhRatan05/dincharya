@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import Navbar from '../components/Navbar'
 import TaskCard from '../components/TaskCard'
 import Footer from '../components/Footer'
+import { createTodo, getAllTodos } from '../redux/slices/todo/todo'
 
 const Progress = () => {
-  const URL = 'https://dincharyaserver.onrender.com/api/progress/'
-  const url = process.env.URL
-  const id='666e9fc917dd12ca820c19ae'
-  const url2= URL+id
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getAllTodos()) 
+  },[])
+
+
+  const {error,isLoading,todos} = useSelector((state)=>state.progress)
+
   const [created,setCreated] = useState(false)
   const [title,setTitle] = useState('')
   const [description,setDescription] = useState('')
@@ -16,29 +24,8 @@ const Progress = () => {
     description:'',
     isCompleted:false,
   })
-  
-  console.log('run',URL+id)
-  const [todos,setTodos] = useState([])
 
 //get todos
-  const getTodos= async()=>{
-      
-    try {
-      const data= await fetch(url2,{
-        method:"GET",
-        headers:{
-          "Content-Type": "application/json",
-        },
-      })
-
-      const res=await data.json()
-      const par = await JSON.parse(res.daa)
-
-      setTodos(par)
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
 //change value
   const handleChange=(e)=>{
@@ -53,36 +40,28 @@ const Progress = () => {
       setDescription(value)
       return
   }
+
 //Create Todo
   const handleSubmit =async (e)=>{
-    e.preventDefault()
-    if(title==='') alert('Title is required')
-    else{
-    try {
-      const res= await fetch(url2,{
-        method:'POST',
-        headers:{
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(todo)
-      })
-      const data = await res.json()
-      console.log(data.success)
-      if(data.success) setCreated(!created)
-      
-    } catch (error) {
-      console.error('fetching error',error)
-    }
-    }
-
+      e.preventDefault()
+      if(title==='') alert('Title is required')
+      else{
+          dispatch(createTodo())
+          console.log('deployed',todos)
+      }
   }
-    useEffect(()=>{
-    getTodos()
-  },[])
-  useEffect(()=>{
-    console.log('created changed',created)
-    getTodos()
-  },[created])
+
+
+
+// useEffect(()=>{
+//     getTodos()
+// },[])
+
+
+// useEffect(()=>{
+//   console.log('created changed',created)
+//   getTodos()
+// },[created])
 
 
   return (
@@ -94,9 +73,12 @@ const Progress = () => {
         <div className=' text-6xl md:8xl text-kalar-400 mt-3 flex justify-center items-center'>
           To be done
         </div>
+        {isLoading? <h1>loading ...</h1>
+        :
         <div className=''>
           {todos?.map((todo, index)=>(
-          <>
+
+            <> 
             {todo.isCompleted?
             <></>      
             :
@@ -106,6 +88,7 @@ const Progress = () => {
           ))
           }
         </div>
+        }
 
 
       </div>
@@ -118,7 +101,6 @@ const Progress = () => {
         <div className=''>
           {todos?.map((todo, index)=>(
           <>
-            {console.log('inside',todo.isCompleted)}
             {todo.isCompleted?
            <TaskCard key={todo._id} id={todo._id} title={todo.title} description={todo.description} isCompleted={todo.isCompleted}/>
             :
