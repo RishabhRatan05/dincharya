@@ -4,6 +4,7 @@ import TaskCard from '../components/TaskCard'
 import Footer from '../components/Footer'
 
 const Progress = () => {
+  const URL = 'https://dincharyaserver.vercel.app/'
   const url = process.env.URL
   const id='666e9fc917dd12ca820c19ae'
   const url2= url+id
@@ -15,8 +16,8 @@ const Progress = () => {
     description:'',
     isCompleted:false,
   })
-
-  console.log(url+id)
+  
+  console.log(URL+id)
   const [todos,setTodos] = useState([])
 
 //get todos
