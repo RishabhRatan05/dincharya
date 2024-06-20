@@ -67,6 +67,8 @@ const Progress = () => {
 //Create Todo
   const handleSubmit =async (e)=>{
       e.preventDefault()
+      setTitle('')
+      setDescription('')
       if(title==='') alert('Title is required')
       else{
         await createProgress(todoo)
