@@ -18,7 +18,6 @@ export const getAllTodos = createAsyncThunk('getTodos', async()=>{
 
           const res = await data.json()
           const par = await JSON.parse(res.daa)
-          console.log('inside getalltodo',par)
           return par
         } catch (error) {
           return error
@@ -41,12 +40,12 @@ export const createTodo = createAsyncThunk('createTodo', async (todo)=>{
           // credentials:'same-origin',
           body: JSON.stringify(todo),
         })
-        console.log('inside creteTodo data: ',todo)
         return await res.json().todo
       } catch (error) {
         return error
       }
 })
+
 
 const todoSlice = createSlice({
   name: "progress",

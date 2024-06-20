@@ -4,19 +4,32 @@ import Navbar from '../components/Navbar'
 import TaskCard from '../components/TaskCard'
 import Footer from '../components/Footer'
 import { createTodo, getAllTodos } from '../redux/slices/todo/todo'
+import { useCreateProgressMutation, useEditProgressMutation, useGetTodosQuery } from '../redux/api/todo/todo'
 
 const Progress = () => {
 
-  const dispatch = useDispatch()
+  const [todos,setTodos] = useState()
+
+  const {data, isError, isLoading, isFetching, isSuccess} = useGetTodosQuery()
+
+  const getAllTodos = async()=>{
+    try {
+      if(isSuccess){
+        const res = await data
+        const par = await JSON.parse(res.daa)
+        setTodos(par)
+      }
+    } catch (error) {
+      console.error('inside',error)
+    }
+  }
 
   useEffect(()=>{
-      dispatch(getAllTodos()) 
-  },[])
+    getAllTodos()
+    
+  },[isSuccess])
 
-
-  const {error,isLoading,todos} = useSelector((state)=>state.progress)
-
-  console.log('todos',error,isLoading,todos)
+  const createProgress = useCreateProgressMutation()[0]
 
   const [title,setTitle] = useState('')
   const [description,setDescription] = useState('')
@@ -25,8 +38,6 @@ const Progress = () => {
     description:'',
     isCompleted:false,
   })
-
-//get todos
 
 //change value
   const handleChange=(e)=>{
@@ -47,22 +58,9 @@ const Progress = () => {
       e.preventDefault()
       if(title==='') alert('Title is required')
       else{
-          dispatch(createTodo(todoo))
-          console.log('deployed',todos)
+          createProgress(todoo)
       }
   }
-
-
-
-// useEffect(()=>{
-//     getTodos()
-// },[])
-
-
-// useEffect(()=>{
-//   console.log('created changed',created)
-//   getTodos()
-// },[created])
 
 
   return (
@@ -83,7 +81,7 @@ const Progress = () => {
             { todo?.isCompleted?
             <></>      
             :
-           <TaskCard key={todo._id} id={todo._id} title={todo.title} description={todo.description} isCompleted={todo.isCompleted}/>
+           <TaskCard key={todo._id} id={todo._id} todo={todo}/>
              }
            </>)
           ))
@@ -104,12 +102,12 @@ const Progress = () => {
             todo && 
           (<>
             {todo?.isCompleted?
-           <TaskCard key={todo._id} id={todo._id} title={todo.title} description={todo.description} isCompleted={todo.isCompleted}/>
+           <TaskCard key={todo._id} id={todo._id} todo={todo}/>
             :
             <></>
             }
           </>)
-          ))
+          )) 
           }
         </div>
       </div>
