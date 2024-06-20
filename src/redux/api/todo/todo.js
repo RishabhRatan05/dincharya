@@ -8,14 +8,14 @@ export const todoApi = createApi({
     baseUrl: process.env.REACT_APP_URL,
   }),
 
-  tagTypes: ["todos"],
+  // tagTypes: ["todos"],
 
   endpoints: (buider) => ({
     getTodos: buider.query({
       query: () => ({
         url: `api/progress/666e9fc917dd12ca820c19ae`,
       }),
-      providesTags:['todos']
+      // providesTags:['todos'],
     }),
 
     createProgress: buider.mutation({
@@ -28,7 +28,7 @@ export const todoApi = createApi({
         },
         body: todo,
       }),
-      invalidatesTags:['todos']
+      // invalidatesTags:['todos']
     }),
 
     editProgress: buider.mutation({
@@ -41,7 +41,7 @@ export const todoApi = createApi({
         },
         body: newtodo,
       }),
-      invalidatesTags:['todos']
+      // invalidatesTags:['todos']
     }),
 
     deleteProgress: buider.mutation({
@@ -49,7 +49,7 @@ export const todoApi = createApi({
         url: `api/progress/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags:['todos']
+      // invalidatesTags:['todos']
     }),
   }),
 })

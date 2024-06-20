@@ -1,5 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { useGetTodosQuery } from '../../api/todo/todo'
+
 
 const { REACT_APP_URL } = process.env
 const url = `${REACT_APP_URL}api/progress/`
@@ -51,11 +53,11 @@ const todoSlice = createSlice({
   name: "progress",
   initialState: {
     todos:[],
-    error:null,
-    isLoading:false,
   },
   reducers: {
-    
+    updateTodos: (state,data)=>{
+      state.todos = data.payload
+    }
   },
   extraReducers: (builder)=>{
 
@@ -93,6 +95,6 @@ const todoSlice = createSlice({
   },
 })
 
-
+export const {updateTodos} = todoSlice.actions
 
 export default todoSlice.reducer
