@@ -68,19 +68,19 @@ const TaskCard = ({todo, id}) => {
 
   return (
     <div className={`flex justify-between items-center ${isCompleted ? 'bg-kalar-200' : 'bg-kalar-green'}  w-full p-2 md:m-2 my-2`}>
-      <div className='text-2xl md:text-4xl text-kalar-100'>{title}</div>
-      <div className='text-1xl'>{description}</div>
-      <div>
+      <div className='text-2xl md:text-4xl text-kalar-100 col-span-1'>{title}</div>
+      <div className='text-1xl col-span-3'>{description}</div>
+      <div className='col-span-2'>
         {isCompleted?
-      <button onClick={handleRepeat} className='bg-kalar-400 text-kalar-100 p-1 mr-1'>Repeat</button>
+      <button onClick={handleRepeat} className='bg-kalar-400 text-kalar-100 p-1 mr-1  sm:mb-0 mb-1'>Repeat</button>
         :
-      <button onClick={handleEdit} className='bg-kalar-400 text-kalar-100 p-1 mr-1'>Edit</button>
+      <button onClick={handleEdit} className='bg-kalar-400 text-kalar-100 p-1 sm:mb-0 mb-1  mr-1'>Edit</button>
         }
       {isCompleted?
-      <button onClick={handleDelete} className='bg-kalar-400 text-kalar-100 p-1'>
+      <button onClick={handleDelete} className='bg-kalar-400 text-kalar-100  p-1 '>
         Delete
       </button>
-      :<button onClick={handleDone} className='bg-kalar-400 text-kalar-100 p-1'>
+      :<button onClick={handleDone} className='bg-kalar-400 text-kalar-100 p-1 '>
         Done
       </button>}
       </div>
