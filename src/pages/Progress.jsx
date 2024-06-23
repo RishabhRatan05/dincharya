@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import Navbar from '../components/Navbar'
 import TaskCard from '../components/TaskCard'
-import Footer from '../components/Footer'
 import { updateTodos } from '../redux/slices/todo/todo'
 import { useCreateProgressMutation, useEditProgressMutation, useGetTodosQuery } from '../redux/api/todo/todo'
 import { valueChange } from '../redux/slices/todo/editTodo'
-import { loginUser } from '../redux/slices/user'
+import { skipToken } from '@reduxjs/toolkit/query'
 
 
 const Progress = () => {
@@ -16,28 +15,26 @@ const Progress = () => {
   const{_id} = useSelector(state=>state.user)
   const token = localStorage.getItem('token')
 
-  console.log('todos',todos)
-
   const {data, isError, isLoading, isFetching, isSuccess, refetch} = useGetTodosQuery()
 
-
   updateTodos(data)
-
 
   const editProgress = useEditProgressMutation()[0]
 
 
   const getAllTodos = async()=>{
-
-    try {
-      if(isSuccess){
-        const res = await data
-        const par = await JSON.parse(res.daa)
-        dispatch(updateTodos(par))
-        // setTodos(par)
+    if(token){
+      try {
+        if(isSuccess){
+          refetch()
+          const res = await data
+          const par = await JSON.parse(res.daa)
+          dispatch(updateTodos(par))
+          // setTodos(par)
+        }
+      } catch (error) {
+        console.error('inside',error)
       }
-    } catch (error) {
-      console.error('inside',error)
     }
   }
 
@@ -84,6 +81,9 @@ const Progress = () => {
       e.preventDefault()
       setTitle('')
       setDescription('')
+      if(!token){
+        return alert('Login First')
+      }
       if(title==='') alert('Title is required')
       else{
         await createProgress(todoo)

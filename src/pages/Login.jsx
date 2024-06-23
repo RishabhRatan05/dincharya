@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useLoginMutation } from '../redux/api/auth/auth'
-import {redirect, useNavigate} from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../redux/slices/user'
 
@@ -19,7 +19,6 @@ const Login = () => {
 
     const handleSubmit=async(e)=>{
       e.preventDefault()
-      console.log('profile',profile)
       const message = await login(profile)
 
 
@@ -31,7 +30,6 @@ const Login = () => {
           name:user.name
         }
       dispatch(loginUser(newUser))
-      console.log('hi',name)
       return navigate('/')
       }
       else{
