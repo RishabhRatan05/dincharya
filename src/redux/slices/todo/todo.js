@@ -1,100 +1,23 @@
 import {createSlice} from '@reduxjs/toolkit'
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import { useGetTodosQuery } from '../../api/todo/todo'
 
 
-const { REACT_APP_URL } = process.env
-const url = `${REACT_APP_URL}api/progress/`
-const id = "666e9fc917dd12ca820c19ae"
-const url2 = url + id
 
-export const getAllTodos = createAsyncThunk('getTodos', async()=>{
-
-        try {
-          const data = await fetch(url2, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-
-          const res = await data.json()
-          const par = await JSON.parse(res.daa)
-          return par
-        } catch (error) {
-          return error
+const progress = createSlice({
+    name:'progress',
+    initialState:{
+        todos:[]
+    },
+    reducers:{
+        updateTodos:(state,par)=>{
+            state.todos = par.payload
+        },
+        deleteTodos:(state)=>{
+            state.todos = state.todos.filter((i)=>(false))
         }
-})
-
-
-export const createTodo = createAsyncThunk('createTodo', async (todo)=>{
-  console.log('ttooddoo',todo)
-      try {
-        const res = await fetch(url2, {
-          method: "POST",
-          //new
-          // mode: 'no-cors',
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-          //new
-          // credentials:'same-origin',
-          body: JSON.stringify(todo),
-        })
-        return await res.json().todo
-      } catch (error) {
-        return error
-      }
-})
-
-
-const todoSlice = createSlice({
-  name: "progress",
-  initialState: {
-    todos:[],
-  },
-  reducers: {
-    updateTodos: (state,data)=>{
-      state.todos = data.payload
     }
-  },
-  extraReducers: (builder)=>{
-
-    //get todos
-    builder.addCase(getAllTodos.fulfilled,(state,action)=>{
-        state.isLoading = false
-        state.error =null
-        state.todos = action.payload
-    })
-    builder.addCase(getAllTodos.pending,(state,action)=>{
-      state.isLoading =true
-      state.error = null
-    })
-    builder.addCase(getAllTodos.rejected,(state,action)=>{
-      state.isLoading = false
-      state.error = action.error
-    })
-
-
-    //create todo
-    builder.addCase(createTodo.fulfilled,(state,action)=>{
-          state.error = null
-          state.isLoading = false
-          state.todos.push(action.payload)
-    })
-    builder.addCase(createTodo.rejected, (state, action) => {
-      state.error = action.error
-      state.isLoading = false
-    })
-    builder.addCase(createTodo.pending, (state, action) => {
-      state.error = null
-      state.isLoading = true
-    })
-
-  },
 })
 
-export const {updateTodos} = todoSlice.actions
+export const {updateTodos, deleteTodos} = progress.actions
 
-export default todoSlice.reducer
+
+export default progress.reducer

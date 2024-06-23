@@ -1,12 +1,28 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, redirect, useNavigate } from 'react-router-dom'
+import { faBars} from '@fortawesome/free-solid-svg-icons'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteTodos, updateTodos } from '../redux/slices/todo/todo'
+import { loginUser } from '../redux/slices/user'
 
 const Navbar = () => {
   const [clicked, setClicked] = useState(false)
   const [clicked3, setClicked3] = useState(false)
-  const [user,setUser] = useState(false)
+  const dispatch =useDispatch()
+  const navigate = useNavigate()
+  // const {todos} = useSelector(state=>state.progress)
+
+
+
+  const token = localStorage.getItem('token')
+
+  const handleLogOut=()=>{
+    localStorage.removeItem('token')
+    dispatch(deleteTodos())
+    dispatch(loginUser({}))
+    return navigate('/')
+  }
 
   return (
     <div className='z-20'>
@@ -17,9 +33,9 @@ const Navbar = () => {
           dincharya
         </Link>
         <button onClick={()=>setClicked(!clicked)}>
-          {clicked ? <>Unclick</>: 
+          {clicked ? <><FontAwesomeIcon icon={faBars} color='#ffffff' /></>: 
           <>
-          clicked
+          <FontAwesomeIcon icon={faBars} color='#ffffff' />
           </>
     }
         </button>
@@ -36,9 +52,9 @@ const Navbar = () => {
               Profile
             </Link>
             <div className='h-1 bg-slate-300'></div>
-            {user?
-              <Link to={'/'}>LogOut 
-              </Link>
+            {token?
+              <button onClick={handleLogOut} className='text-white'>LogOut 
+              </button>
               :
               <div className=''>
               <Link to={'/signUp'} className='text-white'>
@@ -71,13 +87,13 @@ const Navbar = () => {
         <Link to={'/profile'} className='text-white'>
           Profile
         </Link>
-          {user?
-              <Link to={'/'}>LogOut 
-              </Link>
+          {token?
+              <button onClick={handleLogOut} className='text-white'>LogOut 
+              </button>
               :
               <>
                 <button onClick={()=>setClicked3(!clicked3)}>
-                  Menu
+                  <FontAwesomeIcon icon={faBars} color='#ffffff' />
                 </button>
               {clicked3 &&
                 <div className='absolute  bg-kalar-300 flex right-0 gap-3 flex-col justify-between p-2 mt-8'>

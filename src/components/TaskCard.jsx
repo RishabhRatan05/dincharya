@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDeleteProgressMutation, useEditProgressMutation, useGetTodosQuery } from '../redux/api/todo/todo'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateTodos } from '../redux/slices/todo/todo'
 import { valueChange } from '../redux/slices/todo/editTodo'
 
 const TaskCard = ({todo, id}) => {
   const {title, description, isCompleted} = todo
+  const {_id} = useSelector(state=>state.user)
   const dispatch = useDispatch()
   const {data,isSuccess, refetch} = useGetTodosQuery()
 
@@ -23,6 +24,13 @@ const TaskCard = ({todo, id}) => {
       description:description,
       isCompleted:true,
     }
+    const resetEditTodo = {
+    title:'',
+    id:'',
+    description:'',
+    editing:false
+    }
+    dispatch(valueChange(resetEditTodo))
     await updateTodo(newTodo)
     refetch()
   }
@@ -43,6 +51,13 @@ const TaskCard = ({todo, id}) => {
       description:description,
       isCompleted:false,
     }
+    const resetEditTodo = {
+    title:'',
+    id:'',
+    description:'',
+    editing:false
+    }
+    dispatch(valueChange(resetEditTodo))
     await updateTodo(newTodo)
     refetch()
   }

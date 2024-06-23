@@ -3,27 +3,37 @@ import {useDispatch, useSelector} from 'react-redux'
 import Navbar from '../components/Navbar'
 import TaskCard from '../components/TaskCard'
 import Footer from '../components/Footer'
-import { createTodo, getAllTodos, updateTodos } from '../redux/slices/todo/todo'
+import { updateTodos } from '../redux/slices/todo/todo'
 import { useCreateProgressMutation, useEditProgressMutation, useGetTodosQuery } from '../redux/api/todo/todo'
 import { valueChange } from '../redux/slices/todo/editTodo'
+import { loginUser } from '../redux/slices/user'
+
 
 const Progress = () => {
 
-  // const [todos,setTodos] = useState()
   const dispatch = useDispatch()
   const {todos} = useSelector(state=>state.progress)
+  const{_id} = useSelector(state=>state.user)
+  const token = localStorage.getItem('token')
+
+  console.log('todos',todos)
 
   const {data, isError, isLoading, isFetching, isSuccess, refetch} = useGetTodosQuery()
 
+
+  updateTodos(data)
+
+
   const editProgress = useEditProgressMutation()[0]
 
+
   const getAllTodos = async()=>{
+
     try {
       if(isSuccess){
         const res = await data
         const par = await JSON.parse(res.daa)
         dispatch(updateTodos(par))
-
         // setTodos(par)
       }
     } catch (error) {
@@ -33,7 +43,12 @@ const Progress = () => {
 
   useEffect(()=>{
     getAllTodos()
-  },[isSuccess,data])
+  },[isSuccess,data,token])
+
+  useEffect(()=>{
+    getAllTodos()
+  },[])
+
 
   const {title:newTitle,description:newDescription,editing, id} = useSelector(state=>state.editTodo)
 
@@ -127,6 +142,7 @@ const Progress = () => {
         </div>
         {isLoading? <h1>loading ...</h1>
         :
+        <>{token?
         <div className=''>
           {todos && todos?.map((todo, index)=>(
             todo &&(
@@ -139,7 +155,11 @@ const Progress = () => {
            </>)
           ))
           }
+        </div>:<div>
+          Login Please
         </div>
+        }
+        </>
         }
 
 
@@ -150,6 +170,8 @@ const Progress = () => {
         <div className=' text-6xl md:8xl text-kalar-400 mt-3 flex justify-center items-center'>
         Completed
         </div>
+        <div>
+          {token?
         <div className=''>
           {todos && todos?.map((todo, index)=>(
             todo && 
@@ -161,6 +183,9 @@ const Progress = () => {
             }
           </>)
           )) 
+          }
+        </div>
+          :<></>
           }
         </div>
       </div>

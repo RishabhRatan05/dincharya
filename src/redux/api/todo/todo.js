@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-
+const token = localStorage.getItem('token')
 
 export const todoApi = createApi({
   reducerPath: "todoApi",
@@ -13,18 +13,22 @@ export const todoApi = createApi({
   endpoints: (buider) => ({
     getTodos: buider.query({
       query: () => ({
-        url: `api/progress/666e9fc917dd12ca820c19ae`,
+        url: `api/progress/`,
+        headers: {
+          Authorization: `${token}`,
+        },
       }),
       // providesTags:['todos'],
     }),
 
     createProgress: buider.mutation({
       query: (todo) => ({
-        url: `api/progress/666e9fc917dd12ca820c19ae`,
+        url: `api/progress/`,
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
+          Authorization: `${token}`,
         },
         body: todo,
       }),
@@ -38,6 +42,7 @@ export const todoApi = createApi({
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
+          Authorization: `${token}`,
         },
         body: newtodo,
       }),
@@ -48,6 +53,11 @@ export const todoApi = createApi({
       query: (id) => ({
         url: `api/progress/${id}`,
         method: "DELETE",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `${token}`,
+        },
       }),
       // invalidatesTags:['todos']
     }),

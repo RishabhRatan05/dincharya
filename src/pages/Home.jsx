@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 
 const Home = () => {
 
+
   return (<>
     <Navbar/>
     <main className='md:px-40 h-full text-center bg-gradient-to-r from bg-kalar-100 to bg-kalar-200'>
