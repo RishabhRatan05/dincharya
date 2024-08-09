@@ -93,7 +93,10 @@ const Progress = () => {
 
   const handleUpdate =async (e)=>{
       e.preventDefault()
-      if(title==='') alert('Title is required')
+      if(title==='') {
+        alert('Title is required')
+        return
+      }
       else{
           const editTodo = {
           title:title,
