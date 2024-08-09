@@ -15,9 +15,16 @@ const Progress = () => {
   const{_id} = useSelector(state=>state.user)
   const token = localStorage.getItem('token')
 
-  const {data, isError, isLoading, isFetching, isSuccess, refetch} = useGetTodosQuery()
+  const get=()=>{
+    if(token){
+      return useGetTodosQuery()
+    }
+    return 
+  }
+  const {data, isError, isLoading, isFetching, isSuccess, refetch} = get()
 
   useEffect(()=>{
+    get()
     if(isSuccess){
       updateTodos(data)
     }
