@@ -43,6 +43,7 @@ const Progress = () => {
   }
 
   useEffect(()=>{
+    
     getAllTodos()
   },[isSuccess,data,token])
 

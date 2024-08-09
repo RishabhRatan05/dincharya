@@ -3,10 +3,11 @@ import { Carousel } from 'react-responsive-carousel';
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer';
+import { useGetTodosQuery } from "../redux/api/todo/todo";
 
 const Home = () => {
 
-
+  useGetTodosQuery()
   return (<>
     <Navbar/>
     <main className='md:px-40 h-full text-center bg-gradient-to-r from bg-kalar-100 to bg-kalar-200'>
