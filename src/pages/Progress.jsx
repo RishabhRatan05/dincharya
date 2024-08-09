@@ -17,7 +17,11 @@ const Progress = () => {
 
   const {data, isError, isLoading, isFetching, isSuccess, refetch} = useGetTodosQuery()
 
-  updateTodos(data)
+  useEffect(()=>{
+    if(isSuccess){
+      updateTodos(data)
+    }
+  },[])
 
   const editProgress = useEditProgressMutation()[0]
 
