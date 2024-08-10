@@ -24,11 +24,11 @@ const SignUp = () => {
   return (
     <form onSubmit={handleSubmit} className='h-screen bg-gradient-to-tr from-black to bg-cyan-500 flex flex-col gap-3 items-center justify-center '>
         <label className='text-white text-3xl'>Name</label>
-        <input name='name' onChange={handleChange} placeholder='enter your name ' className='text-2xl border-none focus:outline-sky-300  '></input>
+        <input name='name' onChange={handleChange} required placeholder='enter your name ' className='text-2xl border-none focus:outline-sky-300  '></input>
         <label className='text-white text-3xl'>Email</label>
-        <input name='email' onChange={handleChange} placeholder='enter your email ' className='text-2xl focus:outline-sky-300  '/>
+        <input name='email' onChange={handleChange} required placeholder='enter your email ' className='text-2xl focus:outline-sky-300  '/>
         <label className='text-white text-3xl'>Password</label>
-        <input name='password' onChange={handleChange} type='password' placeholder='enter password' className='text-2xl focus:outline-sky-300 '/>
+        <input name='password' onChange={handleChange} required type='password' placeholder='enter password' className='text-2xl focus:outline-sky-300 '/>
         <button type='submit' className='bg-kalar-400 px-2 mt-3 rounded text-white text-2xl'>Submit</button>
     </form>
   )

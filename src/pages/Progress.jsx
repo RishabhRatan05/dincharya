@@ -12,11 +12,11 @@ const Progress = () => {
 
   const dispatch = useDispatch()
   const {todos} = useSelector(state=>state.progress)
-  const{_id} = useSelector(state=>state.user)
   const token = localStorage.getItem('token')
 
   const {data, isError, isLoading, isFetching, isSuccess, refetch} = useGetTodosQuery()
-  
+  const {_id:testId} = useSelector(state=>state.user)
+  console.log('id',testId)
   useEffect(()=>{
     if(isSuccess){
       updateTodos(data)
@@ -41,6 +41,13 @@ const Progress = () => {
       }
     }
   }
+
+
+  useEffect(()=>{
+    if(testId=='66b7b1c99e16e33090dc7508'){
+    window.location.reload()
+    }
+  },[])
 
   useEffect(()=>{
     
@@ -165,10 +172,6 @@ const Progress = () => {
           }
         </div>:
         <div>
-          <h1>
-          Login Please
-          </h1>
-          <h2>Or</h2>
           <h2>Test with</h2>
           <h3>Email: test@gmail.com</h3>
           <h4>Password: 1234</h4>

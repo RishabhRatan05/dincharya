@@ -3,9 +3,9 @@ import { Carousel } from 'react-responsive-carousel';
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer';
-import { useGetTodosQuery } from "../redux/api/todo/todo";
 
 const Home = () => {
+
 
   return (<>
     <Navbar/>
