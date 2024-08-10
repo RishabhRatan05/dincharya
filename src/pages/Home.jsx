@@ -145,7 +145,7 @@ const Home = () => {
       
       
 {/* Goals */}
-    <div className='md:flex mt-3 justify-evenly text-center'>
+    {/* <div className='md:flex mt-3 justify-evenly text-center'>
       <h1 className='text-6xl md:text-8xl flex justify-center items-center   animate text-kalar-400'>Goals</h1>
       <div className='mt-4 flex justify-between '>
       <Carousel
@@ -189,7 +189,7 @@ const Home = () => {
       
 
       </div>
-      </div>
+      </div> */}
     </main>
     <Footer/>
   </>
