@@ -9,7 +9,7 @@ const Home = () => {
 
   return (<>
     <Navbar/>
-    <main className='md:px-40 h-full text-center bg-gradient-to-r from bg-kalar-100 to bg-kalar-200'>
+    <main className='md:px-40 h-full text-center bg-gradient-to-tr from-bg-kalar-100 to-bg-kalar-200'>
     
 {/* Morning */}
       <div className='container mb-3 text-kalar-300 md:flex justify-evenly items-center p-2'>

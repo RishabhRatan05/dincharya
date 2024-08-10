@@ -16,7 +16,7 @@ const Progress = () => {
   const token = localStorage.getItem('token')
 
   const {data, isError, isLoading, isFetching, isSuccess, refetch} = useGetTodosQuery()
-
+  
   useEffect(()=>{
     if(isSuccess){
       updateTodos(data)
@@ -148,9 +148,9 @@ const Progress = () => {
         <div className=' text-6xl md:8xl text-kalar-400 mt-3 flex justify-center items-center'>
           To be done
         </div>
-        {isLoading? <h1>loading ...</h1>
-        :
-        <>{token?
+        {token && isLoading &&  <h1>loading ...</h1>}
+
+        {token?
         <div className=''>
           {todos && todos?.map((todo, index)=>(
             todo &&(
@@ -167,8 +167,8 @@ const Progress = () => {
           Login Please
         </div>
         }
-        </>
-        }
+
+
 
 
       </div>
