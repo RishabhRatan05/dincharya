@@ -9,6 +9,7 @@ const ErrorPage = ()=>{
         </h1>
         <h2>{error.status} || {error.statusText}</h2>
         <h2>{error.message}</h2>
+        <button>Go back</button>
     </div>
     )
 }
